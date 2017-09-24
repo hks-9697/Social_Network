@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Userfrom:</strong>
+  <%= @chatbox.userfrom %>
+</p>
+
+<p>
+  <strong>Userto:</strong>
+  <%= @chatbox.userto %>
+</p>
+
+<p>
+  <strong>Msg:</strong>
+  <%= @chatbox.msg %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @chatbox.type %>
+</p>
+
+<%= link_to 'Edit', edit_chatbox_path(@chatbox) %> |
+<%= link_to 'Back', chatboxes_path %>

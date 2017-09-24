@@ -1,0 +1,27 @@
+<%= form_with(model: interest, local: true) do |form| %>
+  <% if interest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(interest.errors.count, "error") %> prohibited this interest from being saved:</h2>
+
+      <ul>
+      <% interest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :userid %>
+    <%= form.text_field :userid, id: :interest_userid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :interest_topic %>
+    <%= form.text_field :interest_topic, id: :interest_interest_topic %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
