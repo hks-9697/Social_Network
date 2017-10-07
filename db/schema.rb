@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924064614) do
+ActiveRecord::Schema.define(version: 20171007112300) do
 
   create_table "chatboxes", force: :cascade do |t|
     t.string "userfrom"
     t.string "userto"
     t.string "msg"
-    t.integer "type"
+    t.integer "type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20170924064614) do
   create_table "posts", force: :cascade do |t|
     t.string "userid"
     t.string "msg"
-    t.integer "type"
+    t.integer "type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -69,6 +69,6 @@ class ChatboxesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chatbox_params
-      params.require(:chatbox).permit(:userfrom, :userto, :msg, :type)
+      params.require(:chatbox).permit(:userfrom, :userto, :msg, :type_id)
     end
 end
