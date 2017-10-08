@@ -4,7 +4,10 @@ class FriendshipsController < ApplicationController
   # GET /friendships
   # GET /friendships.json
   def index
-    @friendships = Friendship.all
+    user = User.find(session[:user_id])
+    @friendships = Friendship.where(status: 1, userid1: user.userid)
+    @friendships2 = Friendship.where(status: 0, userid1: user.userid)
+    @friendships3 = Friendship.where(status: 2, userid1: user.userid)
   end
 
   # GET /friendships/1
@@ -14,20 +17,37 @@ class FriendshipsController < ApplicationController
 
   # GET /friendships/new
   def new
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @friendship = Friendship.new
+    @friendship2 = Friendship.new
+
   end
 
   # GET /friendships/1/edit
   def edit
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
   end
 
   # POST /friendships
   # POST /friendships.json
   def create
+
     @friendship = Friendship.new(friendship_params)
+    user = User.find(session[:user_id])
+    @friendship.userid1 = user.userid
+    @friendship.status=0
+
+    @friendship2 = Friendship.new(friendship_params)
+    @friendship2.userid1=@friendship.userid2
+    @friendship2.userid2 = user.userid
+    @friendship2.status=1
 
     respond_to do |format|
-      if @friendship.save
+      if @friendship.save and @friendship2.save
         format.html { redirect_to @friendship, notice: 'Friendship was successfully created.' }
         format.json { render :show, status: :created, location: @friendship }
       else
@@ -35,6 +55,8 @@ class FriendshipsController < ApplicationController
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
       end
     end
+
+
   end
 
   # PATCH/PUT /friendships/1
@@ -54,13 +76,30 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1
   # DELETE /friendships/1.json
   def destroy
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @friendship.destroy
     respond_to do |format|
       format.html { redirect_to friendships_url, notice: 'Friendship was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+  def accept_request
+       p params["format"]
+      @friendship=Friendship.find(params["format"].to_i)
+    @friendship.status=2
+    p @friendship
+       @friendship2=Friendship.where(userid1: @friendship.userid2,userid2: @friendship.userid1)
+       @friendship2.each do |friend|
+         friend.status=2
+         friend.save
+       end
+       @friendship.save
+      # @friendship2.save
+    redirect_to friendships_path
 
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_friendship
@@ -71,4 +110,6 @@ class FriendshipsController < ApplicationController
     def friendship_params
       params.require(:friendship).permit(:userid1, :userid2, :status)
     end
+
+
 end

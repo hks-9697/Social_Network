@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-
+  get '/accept_request' => 'friendships#accept_request'
   resources :friendships
   resources :chatboxes
   resources :posts

@@ -14,17 +14,25 @@ class InterestsController < ApplicationController
 
   # GET /interests/new
   def new
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @interest = Interest.new
   end
 
   # GET /interests/1/edit
   def edit
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
   end
 
   # POST /interests
   # POST /interests.json
   def create
     @interest = Interest.new(interest_params)
+    user = User.find(session[:user_id])
+    @interest.userid = user.userid
 
     respond_to do |format|
       if @interest.save
@@ -54,6 +62,9 @@ class InterestsController < ApplicationController
   # DELETE /interests/1
   # DELETE /interests/1.json
   def destroy
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @interest.destroy
     respond_to do |format|
       format.html { redirect_to interests_url, notice: 'Interest was successfully destroyed.' }

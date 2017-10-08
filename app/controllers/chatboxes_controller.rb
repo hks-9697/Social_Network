@@ -14,17 +14,26 @@ class ChatboxesController < ApplicationController
 
   # GET /chatboxes/new
   def new
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @chatbox = Chatbox.new
   end
 
   # GET /chatboxes/1/edit
   def edit
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
   end
 
   # POST /chatboxes
   # POST /chatboxes.json
   def create
     @chatbox = Chatbox.new(chatbox_params)
+    user = User.find(session[:user_id])
+    @chatbox.userfrom = user.userid
+    @chatbox.type_id=1
 
     respond_to do |format|
       if @chatbox.save
@@ -40,6 +49,7 @@ class ChatboxesController < ApplicationController
   # PATCH/PUT /chatboxes/1
   # PATCH/PUT /chatboxes/1.json
   def update
+
     respond_to do |format|
       if @chatbox.update(chatbox_params)
         format.html { redirect_to @chatbox, notice: 'Chatbox was successfully updated.' }
@@ -54,6 +64,9 @@ class ChatboxesController < ApplicationController
   # DELETE /chatboxes/1
   # DELETE /chatboxes/1.json
   def destroy
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @chatbox.destroy
     respond_to do |format|
       format.html { redirect_to chatboxes_url, notice: 'Chatbox was successfully destroyed.' }

@@ -11,20 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
+<!--  <div class="field">
     <%= form.label :userid %>
-    <%= form.text_field :userid, id: :post_userid %>
-  </div>
+    <%= form.text_field :userid, id: :post_userid, :value => SessionsController.__id__ %>
+
+  </div>-->
 
   <div class="field">
     <%= form.label :msg %>
     <%= form.text_field :msg, id: :post_msg %>
   </div>
 
-  <div class="field">
+<!--  <div class="field">
     <%= form.label :type_id %>
     <%= form.number_field :type_id, id: :post_type_id %>
-  </div>
+  </div>-->
 
   <div class="actions">
     <%= form.submit %>

@@ -14,17 +14,26 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @post = Post.new
   end
 
   # GET /posts/1/edit
   def edit
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
   end
 
   # POST /posts
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    user = User.find(session[:user_id])
+    @post.userid = user.userid
+    @post.type_id=1
 
     respond_to do |format|
       if @post.save
@@ -40,6 +49,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -54,6 +64,9 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    if session[:user_id]==nil
+      redirect_to login_url
+    end
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }

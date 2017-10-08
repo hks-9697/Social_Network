@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Friendships</h1>
+<h1>Incoming Friendships</h1>
 
 <table>
   <thead>
@@ -20,6 +20,7 @@
         <td><%= friendship.status %></td>
         <td><%= link_to 'Show', friendship %></td>
         <td><%= link_to 'Edit', edit_friendship_path(friendship) %></td>
+        <td> <%= link_to 'Accept', accept_request_path(friendship) %></td>
         <td><%= link_to 'Destroy', friendship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -27,5 +28,60 @@
 </table>
 
 <br>
+
+<h1>Requested Friendships</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Userid1</th>
+    <th>Userid2</th>
+    <th>Status</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @friendships2.each do |friendship| %>
+      <tr>
+        <td><%= friendship.userid1 %></td>
+        <td><%= friendship.userid2 %></td>
+        <td><%= friendship.status %></td>
+        <td><%= link_to 'Destroy', friendship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h1>Friends</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Userid1</th>
+    <th>Userid2</th>
+    <th>Status</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @friendships3.each do |friendship| %>
+      <tr>
+        <td><%= friendship.userid1 %></td>
+        <td><%= friendship.userid2 %></td>
+        <td><%= friendship.status %></td>
+        <td><%= link_to 'Show', friendship %></td>
+        <td><%= link_to 'Edit', edit_friendship_path(friendship) %></td>
+        <td><%= link_to 'Destroy', friendship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
 
 <%= link_to 'New Friendship', new_friendship_path %>
