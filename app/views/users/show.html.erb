@@ -25,4 +25,19 @@
   <%= @user.address %>
 </p>
 
-<%= link_to 'Back', login_url %>
+<%
+  @my_interests= Interest.where(userid: @user.userid)%>
+<% if @my_interests !=nil %>
+    <strong>Interest : </strong>
+<% end %>
+<%= link_to 'Add Interests' ,new_interest_path %>
+<% @my_interests.each do |intr| %>
+<br>
+  <%= intr.interest_topic %>
+
+<% end%>
+<br><br>
+
+<%= link_to 'Friends', friendships_path %>
+<%= link_to 'Chats', chatboxes_path %>
+<%= link_to 'Posts', posts_path%>

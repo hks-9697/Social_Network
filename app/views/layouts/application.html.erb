@@ -17,7 +17,11 @@
 
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   '#' %></li>
+        <% if session[:user_id]!=nil %>
+            <li><%= link_to "Home",   user_url(session[:user_id])  %></li>
+            <% else %>
+            <li><%= link_to "Home",   '#'  %></li>
+            <% end %>
         <li><%= link_to "Help",   '#' %></li>
         <% p "hello",session[:user_id] %>
         <% if session[:user_id]==nil %>
