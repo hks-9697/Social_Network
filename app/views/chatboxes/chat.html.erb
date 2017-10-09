@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Chatboxes</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Userfrom</th>
+    <th>Userto</th>
+    <th>Msg</th>
+    <th>Type</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @chatboxes.each do |chatbox| %>
+      <tr>
+        <td><%= chatbox.userfrom %></td>
+        <td><%= chatbox.userto %></td>
+        <td><%= chatbox.msg %></td>
+        <td><%= chatbox.type_id %></td>
+        <td><%= link_to 'Show', chatbox %></td>
+        <td><%= link_to 'Edit', edit_chatbox_path(chatbox) %></td>
+        <td><%= link_to 'Destroy', chatbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Send msg', new_chatbox_path(@usr) %>

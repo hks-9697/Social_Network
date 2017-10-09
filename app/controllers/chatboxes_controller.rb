@@ -4,7 +4,9 @@ class ChatboxesController < ApplicationController
   # GET /chatboxes
   # GET /chatboxes.json
   def index
-    @chatboxes = Chatbox.all
+    user = User.find(session[:user_id])
+  #  @chatboxes = Chatbox.find_by_sql(["select userto from chatboxes where userfrom = ? union select userfrom from chatboxes where userto = ?",user.userid,user.userid])
+    @chatboxes = Chatbox.find_by_sql(["select * from friendships where status = 2 and userid1 = ?",user.userid])
   end
 
   # GET /chatboxes/1
@@ -14,6 +16,8 @@ class ChatboxesController < ApplicationController
 
   # GET /chatboxes/new
   def new
+    session[:userto]=params["format"].to_i
+    p params
     if session[:user_id]==nil
       redirect_to login_url
     end
@@ -26,15 +30,20 @@ class ChatboxesController < ApplicationController
       redirect_to login_url
     end
   end
+  def chat
+    @usr=User.find_by_userid(Friendship.find(params["format"].to_i).userid2)
+    @me=User.find(session[:user_id])
+    @chatboxes=Chatbox.find_by_sql(["select * from chatboxes where (userfrom = ? and userto = ?) OR (userto = ?  and userfrom = ? ) order by created_at DESC",@usr.userid,@me.userid,@usr.userid,@me.userid])
 
-  # POST /chatboxes
+  end
   # POST /chatboxes.json
   def create
     @chatbox = Chatbox.new(chatbox_params)
     user = User.find(session[:user_id])
     @chatbox.userfrom = user.userid
     @chatbox.type_id=1
-
+    @usr = User.find(session[:userto])
+    @chatbox.userto = @usr.userid
     respond_to do |format|
       if @chatbox.save
         format.html { redirect_to @chatbox, notice: 'Chatbox was successfully created.' }

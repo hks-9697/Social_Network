@@ -5,6 +5,7 @@ class FriendshipsController < ApplicationController
   # GET /friendships.json
   def index
     user = User.find(session[:user_id])
+
     @friendships = Friendship.where(status: 1, userid1: user.userid)
     @friendships2 = Friendship.where(status: 0, userid1: user.userid)
     @friendships3 = Friendship.where(status: 2, userid1: user.userid)
