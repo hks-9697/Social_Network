@@ -1,4 +1,4 @@
-<%= form_with(model: chatbox, local: true) do |form| %>
+<%= form_with(model: chatbox, local: true, html: { multipart: true }) do |form| %>
   <% if chatbox.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(chatbox.errors.count, "error") %> prohibited this chatbox from being saved:</h2>
@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+
+    <div class="field">
+      <%= form.label :chatbox_image %><br>
+      <%= form.file_field :chatbox_image %>
+    </div>
 
   <!--<div class="field">
     <%= form.label :userfrom %>

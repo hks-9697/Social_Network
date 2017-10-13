@@ -1,6 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Profile Pic:</strong>
+  <br>
+  <%= image_tag @user.image.url, :size => "150x150" %>
+
+</p>
+
+
+<p>
   <strong>Userid:</strong>
   <%= @user.userid %>
 </p>
@@ -41,3 +49,6 @@
 <%= link_to 'Friends', friendships_path %>
 <%= link_to 'Chats', chatboxes_path %>
 <%= link_to 'Posts', posts_path%>
+
+<br><br>
+<%= link_to 'Edit', edit_user_path %>

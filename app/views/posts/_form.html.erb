@@ -1,4 +1,4 @@
-<%= form_with(model: post, local: true) do |form| %>
+<%= form_with(model: post, local: true, html: { multipart: true }) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -11,7 +11,13 @@
     </div>
   <% end %>
 
-<!--  <div class="field">
+    <div class="field">
+      <%= form.label :post_image %><br>
+      <%= form.file_field :post_image %>
+    </div>
+
+
+    <!--  <div class="field">
     <%= form.label :userid %>
     <%= form.text_field :userid, id: :post_userid, :value => SessionsController.__id__ %>
 
