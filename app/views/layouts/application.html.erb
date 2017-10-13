@@ -12,11 +12,11 @@
   <![endif]-->
 </head>
 <body>
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
+<header class="navbar navbar-fixed-top navbar-inverse"  >
+  <div class="container" >
 
     <nav>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" >
         <% if session[:user_id]!=nil %>
             <li><%= link_to "Home",   user_url(session[:user_id])  %></li>
             <% else %>
@@ -38,7 +38,7 @@
       <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
   <%= yield %>
-  <% debug(params) if Rails.env.development? %>
+
 </div>
 </body>
 </html>
