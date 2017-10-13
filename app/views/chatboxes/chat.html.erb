@@ -23,8 +23,10 @@
         <td><%= image_tag(chatbox.chatbox_image, :size => "200x200")%></td>
         <td><%= chatbox.type_id %></td>
         <td><%= link_to 'Show', chatbox %></td>
+        <% if chatbox.userfrom == User.find(session[:user_id]).userid %>
         <td><%= link_to 'Edit', edit_chatbox_path(chatbox) %></td>
         <td><%= link_to 'Destroy', chatbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
   <% end %>
   </tbody>

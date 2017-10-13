@@ -9,6 +9,6 @@
   <strong>Interest topic:</strong>
   <%= @interest.interest_topic %>
 </p>
-
+<%@user_var=User.find(session[:user_id]) %>
 <%= link_to 'Edit', edit_interest_path(@interest) %> |
-<%= link_to 'Back', interests_path %>
+<%= link_to 'Back', @user_var %>

@@ -2,4 +2,4 @@
 
 <%= render 'form', chatbox: @chatbox %>
 
-<%= link_to 'Back', chatboxes_path %>
+<%= link_to 'Back', chat_path(session[:chat_id]) %>

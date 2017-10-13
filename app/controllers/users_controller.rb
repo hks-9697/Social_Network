@@ -54,6 +54,9 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+    @user.enc_password=BCrypt::Engine.hash_secret(@user.enc_password, "$2a$12$0Xjo7FBV64NEuofhrp2O0.",@user.userid)
+    @user.save
+
   end
 
   # DELETE /users/1

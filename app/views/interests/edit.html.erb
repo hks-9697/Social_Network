@@ -3,4 +3,6 @@
 <%= render 'form', interest: @interest %>
 
 <%= link_to 'Show', @interest %> |
-<%= link_to 'Back', interests_path %>
+<%@user_var=User.find(session[:user_id]) %>
+
+<%= link_to 'Back', @user_var %>

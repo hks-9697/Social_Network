@@ -6,8 +6,7 @@ class PostsController < ApplicationController
   def index
     @usr=User.find(session[:user_id])
     @friends=Friendship.select('userid2').where(userid1: @usr.userid , status: 2)
-
-    @posts = Post.where(userid: @friends)
+    @posts = Post.where(userid: @usr.userid).or(Post.where(userid: @friends)).order('updated_at DESC')
   end
 
   # GET /posts/1

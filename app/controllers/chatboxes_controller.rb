@@ -4,6 +4,7 @@ class ChatboxesController < ApplicationController
   # GET /chatboxes
   # GET /chatboxes.json
   def index
+    session[:chat_id]=nil
     user = User.find(session[:user_id])
   #  @chatboxes = Chatbox.find_by_sql(["select userto from chatboxes where userfrom = ? union select userfrom from chatboxes where userto = ?",user.userid,user.userid])
     @chatboxes = Chatbox.find_by_sql(["select * from friendships where status = 2 and userid1 = ?",user.userid])
@@ -31,6 +32,7 @@ class ChatboxesController < ApplicationController
     end
   end
   def chat
+    session[:chat_id]=params["format"].to_i
     @usr=User.find_by_userid(Friendship.find(params["format"].to_i).userid2)
     @me=User.find(session[:user_id])
     @chatboxes=Chatbox.find_by_sql(["select * from chatboxes where (userfrom = ? and userto = ?) OR (userto = ?  and userfrom = ? ) order by created_at DESC",@usr.userid,@me.userid,@usr.userid,@me.userid])
@@ -53,6 +55,8 @@ class ChatboxesController < ApplicationController
         format.json { render json: @chatbox.errors, status: :unprocessable_entity }
       end
     end
+
+    session[:usetto]=nil
   end
 
   # PATCH/PUT /chatboxes/1

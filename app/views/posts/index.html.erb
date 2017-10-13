@@ -1,4 +1,4 @@
-<script language="javascript" type="text/javascript">setTimeout("location.reload();",2000);</script>
+<script language="javascript" type="text/javascript">setTimeout("location.reload();",10000);</script>
 <p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
@@ -22,8 +22,10 @@
         <td><%= image_tag(post.post_image, :size => "200x200")%></td>
         <td><%= post.type_id %></td>
         <td><%= link_to 'Show', post %></td>
+        <%if post.userid == User.find(session['user_id']).userid %>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
