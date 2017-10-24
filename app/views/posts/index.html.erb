@@ -9,8 +9,7 @@
       <th>Userid</th>
       <th>Msg</th>
       <th>Image</th>
-      <th>Type</th>
-      <th colspan="4"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -20,7 +19,6 @@
         <td><%= post.userid %></td>
         <td><%= post.msg %></td>
         <td><%= image_tag(post.post_image, :size => "200x200")%></td>
-        <td><%= post.type_id %></td>
         <td><%= link_to 'Show', post %></td>
         <%if post.userid == User.find(session['user_id']).userid %>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>

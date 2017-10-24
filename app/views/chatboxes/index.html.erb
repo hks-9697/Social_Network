@@ -6,15 +6,21 @@
   <thead>
     <tr>
       <th>User</th>
+      <th>Unread count</th>
       <th>Show</th>
-      <th colspan="2"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
+  <% p @chatboxes %>
     <% @chatboxes.each do |chatbox| %>
       <tr>
         <td><%= chatbox.userid2 %></td>
+        <% user = User.find(session[:user_id]) %>
+        <% @readcount=Chatbox.find_by_sql(["select * from chatboxes b where b.userto=? and b.type_id=1 and b.userfrom=?",user.userid,chatbox.userid2]) %>
+
+        <td><%= @readcount.size %></td>
         <td><%= link_to 'Show', chat_path(chatbox)%></td>
       </tr>
     <% end %>

@@ -9,7 +9,7 @@
     <th>Userto</th>
     <th>Msg</th>
     <th>Image</th>
-    <th>Type</th>
+
     <th colspan="4"></th>
   </tr>
   </thead>
@@ -20,9 +20,12 @@
         <td><%= chatbox.userfrom %></td>
         <td><%= chatbox.userto %></td>
         <td><%= chatbox.msg %></td>
+        <%if chatbox.userto==@me.userid
+          chatbox.type_id=0
+        end%>
         <td><%= image_tag(chatbox.chatbox_image, :size => "200x200")%></td>
-        <td><%= chatbox.type_id %></td>
         <td><%= link_to 'Show', chatbox %></td>
+        <% chatbox.save %>
         <% if chatbox.userfrom == User.find(session[:user_id]).userid %>
         <td><%= link_to 'Edit', edit_chatbox_path(chatbox) %></td>
         <td><%= link_to 'Destroy', chatbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -34,4 +37,8 @@
 
 <br>
 
+<%=  %>
+
 <%= link_to 'Send msg', new_chatbox_path(@usr) %>
+<br>
+<%= link_to 'Back', chatboxes_path %>

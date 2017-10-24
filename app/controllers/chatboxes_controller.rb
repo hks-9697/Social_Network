@@ -7,7 +7,7 @@ class ChatboxesController < ApplicationController
     session[:chat_id]=nil
     user = User.find(session[:user_id])
   #  @chatboxes = Chatbox.find_by_sql(["select userto from chatboxes where userfrom = ? union select userfrom from chatboxes where userto = ?",user.userid,user.userid])
-    @chatboxes = Chatbox.find_by_sql(["select * from friendships where status = 2 and userid1 = ?",user.userid])
+    @chatboxes = Chatbox.find_by_sql(["select * from friendships a where a.status = 2 and a.userid1 = ?",user.userid])
   end
 
   # GET /chatboxes/1
@@ -36,7 +36,6 @@ class ChatboxesController < ApplicationController
     @usr=User.find_by_userid(Friendship.find(params["format"].to_i).userid2)
     @me=User.find(session[:user_id])
     @chatboxes=Chatbox.find_by_sql(["select * from chatboxes where (userfrom = ? and userto = ?) OR (userto = ?  and userfrom = ? ) order by created_at DESC",@usr.userid,@me.userid,@usr.userid,@me.userid])
-
   end
   # POST /chatboxes.json
   def create
