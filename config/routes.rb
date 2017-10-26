@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   get '/accept_request' => 'friendships#accept_request'
   get '/chat' => 'chatboxes#chat'
+  post '/like' => 'posts#like'
+  post '/unlike' => 'posts#unlike'
+
   resources :friendships
   resources :chatboxes
+
   resources :posts
   resources :interests
   resources :users

@@ -76,6 +76,28 @@ class PostsController < ApplicationController
     end
   end
 
+  def like
+    @user = User.find(session[:user_id])
+
+    @post = Post.find(params[:format].to_i)
+
+
+    @like = Like.new
+    @like.user_id = @user.id
+    @like.post_id = @post.id
+
+    @like.save
+
+    redirect_to posts_path
+  end
+
+  def unlike
+    @user = User.find(session[:user_id])
+    @post = Post.find(params[:format].to_i)
+    Like.where(user_id: @user.id,post_id: @post.id).destroy_all
+    redirect_to posts_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

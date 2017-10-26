@@ -86,19 +86,18 @@ class FriendshipsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   def accept_request
-       p params["format"]
       @friendship=Friendship.find(params["format"].to_i)
-    @friendship.status=2
-    p @friendship
-       @friendship2=Friendship.where(userid1: @friendship.userid2,userid2: @friendship.userid1)
-       @friendship2.each do |friend|
+      @friendship.status=2
+      @friendship2=Friendship.where(userid1: @friendship.userid2,userid2: @friendship.userid1)
+      @friendship2.each do |friend|
          friend.status=2
          friend.save
-       end
-       @friendship.save
-      # @friendship2.save
-    redirect_to friendships_path
+      end
+      @friendship.save
+
+      redirect_to friendships_path
 
   end
   private
