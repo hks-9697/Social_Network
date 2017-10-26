@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post '/like' => 'posts#like'
   post '/unlike' => 'posts#unlike'
 
+  root 'sessions#new'
+
   resources :friendships
   resources :chatboxes
 

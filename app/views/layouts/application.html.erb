@@ -21,8 +21,6 @@
             <% else %>
             <li><%= link_to "Home",   '#'  %></li>
             <% end %>
-        <li><%= link_to "Help",   '#' %></li>
-        <% p "hello",session[:user_id] %>
         <% if session[:user_id]==nil %>
         <li><%= link_to "Log in", login_path %></li>
             <% else  %>

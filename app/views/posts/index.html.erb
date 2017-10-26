@@ -9,7 +9,8 @@
       <th>Userid</th>
       <th>Msg</th>
       <th>Image</th>
-      <th colspan="3"></th>
+      <th>Number of likes</th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -19,6 +20,9 @@
         <td><%= post.userid %></td>
         <td><%= post.msg %></td>
         <td><%= image_tag(post.post_image, :size => "200x200")%></td>
+        <% @count=Like.where(:post_id => post.id).size %>
+        <td><%= @count %></td>
+
         <% @user = User.find(session[:user_id]) %>
 
         <% likess=Like.where(:user_id => @user.id, :post_id => post.id) %>
