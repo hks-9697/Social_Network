@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026130850) do
+ActiveRecord::Schema.define(version: 20171027161834) do
 
   create_table "chatboxes", force: :cascade do |t|
     t.string "userfrom"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20171026130850) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["userid1", "userid2"], name: "index_friendships_on_userid1_and_userid2", unique: true
   end
 
   create_table "interests", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20171026130850) do
     t.string "interest_topic"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["userid", "interest_topic"], name: "index_interests_on_userid_and_interest_topic", unique: true
   end
 
   create_table "likes", force: :cascade do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 20171026130850) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.index ["userid"], name: "index_users_on_userid", unique: true
   end
 
 end

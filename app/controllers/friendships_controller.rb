@@ -37,8 +37,9 @@ class FriendshipsController < ApplicationController
   # POST /friendships.json
   def create
 
-    @friendship = Friendship.new(friendship_params)
     user = User.find(session[:user_id])
+
+    @friendship = Friendship.new(friendship_params)
     @friendship.userid1 = user.userid
     @friendship.status=0
 
@@ -47,16 +48,21 @@ class FriendshipsController < ApplicationController
     @friendship2.userid2 = user.userid
     @friendship2.status=1
 
-    respond_to do |format|
-      if @friendship.save and @friendship2.save
-        format.html { redirect_to @friendship, notice: 'Friendship was successfully created.' }
-        format.json { render :show, status: :created, location: @friendship }
-      else
-        format.html { render :new }
-        format.json { render json: @friendship.errors, status: :unprocessable_entity }
+    if Friendship.where(userid1: user.userid , userid2: @friendship.userid2).size > 0
+      flash.now[:danger] = "Request already sent or already a friend"
+      redirect_to friendships_path
+      p Friendship.where(userid1: user.userid , userid2: @friendship.userid2)
+    else
+      respond_to do |format|
+        if @friendship.save and @friendship2.save
+          format.html { redirect_to @friendship, notice: 'Friendship was successfully created.' }
+          format.json { render :show, status: :created, location: @friendship }
+        else
+          format.html { render :new }
+          format.json { render json: @friendship.errors, status: :unprocessable_entity }
+        end
       end
     end
-
 
   end
 

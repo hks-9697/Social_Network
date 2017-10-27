@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Profile Pic:</strong>
-  <br>
+
+  <%p image_tag @user.image.url, :size => "150x150" %>
+
   <%= image_tag @user.image.url, :size => "150x150" %>
 
 </p>

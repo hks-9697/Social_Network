@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find(session[:user_id])
   end
 
 
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
       if @user.save
         @user.enc_password=BCrypt::Engine.hash_secret(@user.enc_password, "$2a$12$0Xjo7FBV64NEuofhrp2O0.",@user.userid)
         if @user.save
-        format.html { redirect_to @user, notice: @user.name + ' created' }
+        format.html { redirect_to root_path, notice: @user.name + ' created' }
         format.json { render :show, status: :created, location: @user }
         end
       else
@@ -72,7 +73,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      if(session[:user_id]!=nil)
+      @user = User.find(session[:user_id])
+      else
+        @user=nil
+        end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
