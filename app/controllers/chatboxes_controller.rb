@@ -5,9 +5,11 @@ class ChatboxesController < ApplicationController
   # GET /chatboxes.json
   def index
     session[:chat_id]=nil
+  # @usr = User.find();
     user = User.find(session[:user_id])
   #  @chatboxes = Chatbox.find_by_sql(["select userto from chatboxes where userfrom = ? union select userfrom from chatboxes where userto = ?",user.userid,user.userid])
     @chatboxes = Chatbox.find_by_sql(["select * from friendships a where a.status = 2 and a.userid1 = ?",user.userid])
+
   end
 
   # GET /chatboxes/1
