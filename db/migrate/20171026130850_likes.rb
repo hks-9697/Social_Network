@@ -4,6 +4,6 @@ class Likes < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.integer :post_id
     end
-    drop_table :votes
+
   end
 end
